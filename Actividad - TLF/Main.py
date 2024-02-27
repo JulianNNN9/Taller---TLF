@@ -1,6 +1,6 @@
 # pyright: reportMissingImports=false
 import matplotlib.pyplot as plt
-from matplotlib_venn import venn2, venn3
+from matplotlib_venn import venn2, venn3, venn3_circles
 
 
 # Operaciones entre dos conjuntos
@@ -72,10 +72,9 @@ def son_disjuntos(conjunto1, conjunto2):
     return True # Y si no encuentra ningún elemento del conjunto 1 en el conjunto 2 retorna True
 
 # Conjuntos
-conjunto_A = {1, 2, 3}
-conjunto_B = {3, 4, 5}
-conjunto_C = {2, 4, 6}
-conjunto_universo = {1, 2, 3, 4, 5, 6}
+conjunto_A = set([1,2,3])
+conjunto_B = set([3,4,5])
+conjunto_C = set([5,6,7])
 
 # Ejemplo 1: Intersección entre A y B
 interseccion_AB = interseccion(conjunto_A, conjunto_B)
@@ -86,33 +85,9 @@ diferencia_A_C = diferencia(conjunto_A, conjunto_C)
 # Ejemplo 3: Unión de A y C
 union_A_C = union(conjunto_A, conjunto_C)
 
-# Crear el gráfico de Venn para dos conjuntos
-venn2(subsets=[len(conjunto_A.intersection(conjunto_B)),
-               len(conjunto_B.difference(conjunto_A)),
-               len(conjunto_A.intersection(conjunto_B))],
-      set_labels=('A', 'B'))
+# Crea el diagrama de Venn
+venn_diagram = venn3([conjunto_A, conjunto_B, conjunto_C],
+                    set_labels=('A', 'B', 'C'))
 
-plt.title("Ejemplo 1: Intersección entre A y B")
-plt.show()
-
-# Crear el gráfico de Venn para dos conjuntos
-venn2(subsets=[len(conjunto_A.difference(conjunto_C)),
-               len(conjunto_C.difference(conjunto_A)),
-               len(conjunto_A.intersection(conjunto_C))],
-      set_labels=('A', 'C'))
-
-plt.title("Ejemplo 2: Diferencia entre A y C")
-plt.show()
-
-# Crear el gráfico de Venn para tres conjuntos
-venn3(subsets=[len(conjunto_A.difference(union_A_C)),
-               len(conjunto_B.difference(interseccion_AB)),
-               len(interseccion_AB),
-               len(conjunto_C.difference(diferencia_A_C)),
-               len(diferencia_A_C),
-               len(complemento(conjunto_universo, union_A_C)),
-               len(union_A_C)],
-      set_labels=('A', 'B', 'C'))
-
-plt.title("Ejemplo 3: Unión de A y C")
+# Muestra el diagrama
 plt.show()
